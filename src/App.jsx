@@ -149,7 +149,7 @@ function App() {
               ></path>
             </svg>
           </a>
-          <a href="https://www.instagram.com/abogadojuang/" target="_blank">
+          <a href="https://www.instagram.com/swus1978/" target="_blank">
             <svg
               className="w-20 h-20"
               xmlns="http://www.w3.org/2000/svg"
