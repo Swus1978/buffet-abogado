@@ -1,17 +1,19 @@
 import React, { useState } from "react";
+import { ValidateEmail } from "./ValidateEmail";
 
 function Form() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   const getIsFormValid = () => {
     return (
-      firstName.trim() &&
-      lastName.trim() &&
-      email.includes("@") &&
-      message.trim()
+      firstName.trim() !== "" &&
+      lastName.trim() !== "" &&
+      ValidateEmail(email) &&
+      message.trim() !== ""
     );
   };
 
@@ -22,10 +24,39 @@ function Form() {
     setMessage("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("¡Tu mensaje fue enviado con éxito!");
-    clearForm();
+    setError("");
+
+    if (!getIsFormValid()) {
+      setError("Por favor, completa todos los campos correctamente.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          message,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al enviar el formulario");
+      }
+
+      alert("¡Tu mensaje fue enviado con éxito!");
+      clearForm();
+    } catch (err) {
+      setError("Hubo un error al enviar el formulario. Intenta de nuevo.");
+      console.error(err);
+    }
   };
 
   return (
@@ -35,8 +66,9 @@ function Form() {
         onSubmit={handleSubmit}
       >
         <fieldset>
-         
-
+          {error && (
+            <div className="text-red-500 mb-4 text-center">{error}</div>
+          )}
           <div className="Field mb-4">
             <label className="block text-white mb-1">
               Nombres <sup>*</sup>
@@ -90,6 +122,7 @@ function Form() {
           <button
             type="submit"
             className="inline-block w-full mt-4 px-6 py-3 bg-amber-300 text-black rounded-full text-xl font-bold hover:bg-amber-400 transition"
+            disabled={!getIsFormValid()}
           >
             ¡Escribime ahora!
           </button>

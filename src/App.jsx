@@ -12,13 +12,19 @@ function App() {
           <img className="w-30" src={Image} alt="Logo" />
           <ul className="flex space-x-8">
             <li>
-              <a href="/">Inicio</a>
+              <a className="link link-hover" href="/">
+                Inicio
+              </a>
             </li>
             <li>
-              <a href="#about">Sobre Nosotros</a>
+              <a className="link link-hover" href="#about">
+                Sobre Nosotros
+              </a>
             </li>
             <li>
-              <a href="#contact">Contactos</a>
+              <a className="link link-hover" href="#contact">
+                Contactos
+              </a>
             </li>
           </ul>
         </div>
@@ -55,7 +61,7 @@ function App() {
         </a>
       </section>
 
-      <section className="text-center px-4 py-12 bg-black text-amber-100">
+      <section className="text-center px-4 py-12 bg-black text-amber-100 ">
         <a id="about" href="#about">
           <h2 className="text-5xl text-center font-bold mt-20 text-amber-300">
             Sobre Nosotros
@@ -120,7 +126,10 @@ function App() {
         </h2>
         <div className=" w-screen mx-auto flex justify-between items-center px-4 py-2">
           <img className="w-30" src={Image} alt="Logo" />
-          <a href="https://www.facebook.com/abogadojuang/" target="_blank">
+          <a
+            href="https://www.facebook.com/profile.php?id=61575323351008"
+            target="_blank"
+          >
             <svg
               className="w-20 h-20"
               xmlns="http://www.w3.org/2000/svg"
